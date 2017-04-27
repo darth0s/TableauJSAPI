@@ -5,26 +5,59 @@
         <script src="js\vendor\jquery-1.12.3.min.js"></script>
         <script src="js\vendor\moment.min.js"></script>
         <script src='js\ion.rangeSlider\ion.rangeSlider.min.js'></script>
-        
+       
+
         <link rel="stylesheet" type="text/css" href="css\ion.rangeSlider.css">
              <link rel="stylesheet" type="text/css" href="css\normalize.css">
+				<link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css" />
 
+
+<style>
+
+.slider-div
+{
+width:50%;
+
+}
+</style>
+
+
+   <script>
+                                    $(document).ready(function () {
+                                       $("#range_01").ionRangeSlider({
+                                       	 type: "double",
+                                       	 drag_interval: true,
+
+                                       	 	min: +moment().subtract(1, "year").format("X"),
+                                       	 	max: +moment().format("X"),
+									
+										    to: +moment().format("X"),
+										    from: +moment().subtract(1, "months").format("X"),
+										    prettify: function (num) {
+										        return moment(num, "X").format("LL");
+										    }
+										});
+										
+										console.log("slider launched");
+                                    });
+                                </script>
 
     </head>	
 
     <body>
-    <div class='slider-div'></div>
-   
-    <input id="range_01" />
 
-                                <script>
-                                    $(document).ready(function () {
-                                        $("#range_01").ionRangeSlider();
-                                        console.log("slider launched");
-                                    });
-                                </script>
+    <div class="wrapper">
+		    <div class='slider-div'>
+		  
+		    <input id="range_01" />
+			</div>
+
+	</div>
+                             
 
 
 
     </body>
     </html>
+
+
