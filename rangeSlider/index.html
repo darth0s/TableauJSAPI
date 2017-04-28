@@ -12,6 +12,7 @@
 				<link rel="stylesheet" href="css\ion.rangeSlider.skinTableau.css" />
 
 
+
 <style>
 
 .slider-div
@@ -24,6 +25,10 @@ width:500px;
 
 
    <script>
+                                  
+						
+										
+
                                     $(document).ready(function () {
                                      
                                        $("#range_01").ionRangeSlider({
@@ -34,7 +39,8 @@ width:500px;
 									   
 									    min: +moment().subtract(1, "year").format("X"),
                                       	max: +moment().format("X"),
-									
+
+								
 										to: +moment().format("X"),
 										from: +moment().subtract(1, "months").format("X"),
 										prettify: function (num) {
@@ -42,38 +48,41 @@ width:500px;
 										    }
 
 										});
-										
 
-										var $range = $("#range_01");
+                                       	var $range = $("#range_01");
 										var target = document.getElementById('slider-results');
 										
+									                                  
+		                                      $range.on("change", function () {
+		                                      	console.log("changing");
+		                                      	var target = document.getElementById('slider-results');
+												    var $this = $(this),
+												        from = $this.data("from"),
+												        to = $this.data("to");
+												        
+												        from = new Date(from*1000);
+												        to = new Date(to*1000);
+
+												        to = moment(to).format('MM/DD/YYYY');
+														from = moment(from).format('MM/DD/YYYY');
+
+												        var min_label = document.getElementById('irs-min');
+												        var max_label = document.getElementById('irs-max');
+														//$('.irs-max').replaceWith(to);
+														min_label.innerHTML = from;
+														max_label.innerHTML = to;
+														
+
+									
+												    });
+
+										
+                                     	console.log("slider launched");
+                                    });
 
 
-                                      $range.on("change", function () {
-                                      	var target = document.getElementById('slider-results');
-										    var $this = $(this),
-										        from = $this.data("from"),
-										        to = $this.data("to");
-										        
-										        from = new Date(from*1000);
-										        to = new Date(to*1000);
-
-										        to = moment(to).format('MMMM DD, YYYY');
-												from = moment(from).format('MMMM DD, YYYY');
-
-										        var min_label = document.getElementById('irs-min');
-										        var max_label = document.getElementById('irs-max');
-												//$('.irs-max').replaceWith(to);
-												min_label.innerHTML = from;
-												max_label.innerHTML = to;
-												
 
 							
-										    });
-
-
-                                      	console.log("slider launched");
-                                    });
 
 
 
