@@ -4,19 +4,20 @@
         <title>Set Date Filter to Last N Periods </title>
         <script src="js\vendor\jquery-1.12.3.min.js"></script>
         <script src="js\vendor\moment.min.js"></script>
-        <script src='js\ion.rangeSlider\ion.rangeSlider.min.js'></script>
+        <script src='js\ion.rangeSlider\ion.rangeSlider.js'></script>
        
 
         <link rel="stylesheet" type="text/css" href="css\ion.rangeSlider.css">
              <link rel="stylesheet" type="text/css" href="css\normalize.css">
-				<link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css" />
+				<link rel="stylesheet" href="css\ion.rangeSlider.skinTableau.css" />
 
 
 <style>
 
 .slider-div
 {
-width:50%;
+	margin-left:100px;
+width:500px;
 
 }
 </style>
@@ -24,22 +25,59 @@ width:50%;
 
    <script>
                                     $(document).ready(function () {
+                                     
                                        $("#range_01").ionRangeSlider({
-                                       	 type: "double",
-                                       	 drag_interval: true,
-
-                                       	 	min: +moment().subtract(1, "year").format("X"),
-                                       	 	max: +moment().format("X"),
+                                       	type: "double",
+                                       	drag_interval: true,
+										hide_min_max: false,
+									    hide_from_to: true,
+									   
+									    min: +moment().subtract(1, "year").format("X"),
+                                      	max: +moment().format("X"),
 									
-										    to: +moment().format("X"),
-										    from: +moment().subtract(1, "months").format("X"),
-										    prettify: function (num) {
-										        return moment(num, "X").format("LL");
+										to: +moment().format("X"),
+										from: +moment().subtract(1, "months").format("X"),
+										prettify: function (num) {
+										      return moment(num, "X").format("LL");
 										    }
+
 										});
 										
-										console.log("slider launched");
+
+										var $range = $("#range_01");
+										var target = document.getElementById('slider-results');
+										
+
+
+                                      $range.on("change", function () {
+                                      	var target = document.getElementById('slider-results');
+										    var $this = $(this),
+										        from = $this.data("from"),
+										        to = $this.data("to");
+										        
+										        from = new Date(from*1000);
+										        to = new Date(to*1000);
+
+										        to = moment(to).format('MMMM DD, YYYY');
+												from = moment(from).format('MMMM DD, YYYY');
+
+										        var min_label = document.getElementById('irs-min');
+										        var max_label = document.getElementById('irs-max');
+												//$('.irs-max').replaceWith(to);
+												min_label.innerHTML = from;
+												max_label.innerHTML = to;
+												
+
+							
+										    });
+
+
+                                      	console.log("slider launched");
                                     });
+
+
+
+                                    	
                                 </script>
 
     </head>	
@@ -47,9 +85,13 @@ width:50%;
     <body>
 
     <div class="wrapper">
+
 		    <div class='slider-div'>
 		  
 		    <input id="range_01" />
+			</div>
+
+			<div id='slider-results'>
 			</div>
 
 	</div>
