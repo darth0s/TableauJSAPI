@@ -122,7 +122,7 @@
     var base_html =
         '<span class="irs">' +
         '<span class="irs-line" tabindex="-1"><span class="irs-line-left"></span><span class="irs-line-mid"></span><span class="irs-line-right"></span></span>' +
-        '<span class="irs-min">0</span><span class="irs-max">1</span>' +
+        '<span class="irs-min" id="irs-min">0</span><span class="irs-max" id="irs-max">1</span>' +
         '<span class="irs-from">0</span><span class="irs-to">0</span><span class="irs-single">0</span>' +
         '</span>' +
         '<span class="irs-grid"></span>' +
