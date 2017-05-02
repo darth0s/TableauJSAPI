@@ -25,60 +25,115 @@ width:500px;
 
 
    <script>
-                                  
+                         
+              var range; 
+              var target;      
+              var oldFrom = 0;
+              var oldTo = 0;  
+              var irs_min = document.getElementById('irs-min')
 						
-										
-
-                                    $(document).ready(function () {
+                $(document).ready(function () {
                                      
-                                       $("#range_01").ionRangeSlider({
-                                       	type: "double",
-                                       	drag_interval: true,
-										hide_min_max: false,
-									    hide_from_to: true,
+                   $("#range_01").ionRangeSlider({
+                    type: "double",
+                    drag_interval: true,
+  									hide_min_max: false,
+								    hide_from_to: false,
 									   
-									    min: +moment().subtract(1, "year").format("X"),
-                                      	max: +moment().format("X"),
+									  min: +moment().subtract(0.5, "year").format("X"),
+                    max: +moment().format("X"),
 
 								
 										to: +moment().format("X"),
 										from: +moment().subtract(1, "months").format("X"),
-										prettify: function (num) {
-										      return moment(num, "X").format("LL");
-										    }
+
+                    
+
+									//	prettify: function (num) {
+										//     return moment(num, "X").format("LL");
+										 //   }
 
 										});
 
-                                       	var $range = $("#range_01");
-										var target = document.getElementById('slider-results');
+
+                console.log("slider launched");
+                //range = document.getElementById("range_01");
+
+                after_load();
+
+                //  console.log(range);
+
+                                    });
+
+
+              function after_load()
+              {
+
+
+               var $range = $("#range_01"); //don't use getElementByI. $() will call jquery object with more jQuery functions applicable
+
+                $range.on('change', function(){
+
+                    console.log("Saving value " + $(this).data("from"));
+                   // $(this).data('val', $(this).val());
+                    //target = document.getElementById('slider-results');
+                    target = document.getElementById('irs-min');
+                    target.textContent= $(this).data("from");
+
+
+                });
+
+/*
+               $range.on("change",function(){
+                 target = document.getElementById('slider-results');
+                  min_label = document.getElementById('irs-min');
+
+                  target.textContent= $(this).data("from");
+                  min_label.textContent = $(this).data("from");
+
+                //console.log("changed");
+               });
+*/
+              }
+
+
+console.log("testu");
+var target = document.getElementById('slider-results');
+
+
+range.addEventListener("change", function(e){alert("slider changed");});
+
+                    /*
+                             	var $range = $("#range_01");
+										          var target = document.getElementById('slider-results');
 										
 									                                  
-		                                      $range.on("change", function () {
-		                                      	console.log("changing");
-		                                      	var target = document.getElementById('slider-results');
+                      $range.on("change", function () {
+                        	 console.log("changing");
+                          	var target = document.getElementById('slider-results');
 												    var $this = $(this),
-												        from = $this.data("from"),
-												        to = $this.data("to");
+											        from = $this.data("from"),
+											        to = $this.data("to");
 												        
-												        from = new Date(from*1000);
-												        to = new Date(to*1000);
+											        from = new Date(from*1000);
+											        to = new Date(to*1000);
 
-												        to = moment(to).format('MM/DD/YYYY');
-														from = moment(from).format('MM/DD/YYYY');
+											        to = moment(to).format('MM/DD/YYYY');
+                              from = moment(from).format('MM/DD/YYYY');
 
 												        var min_label = document.getElementById('irs-min');
 												        var max_label = document.getElementById('irs-max');
 														//$('.irs-max').replaceWith(to);
 														min_label.innerHTML = from;
 														max_label.innerHTML = to;
+                            //max_label.textContent = to;
 														
 
 									
 												    });
-
+*/
 										
-                                     	console.log("slider launched");
-                                    });
+                                   
 
 
 
