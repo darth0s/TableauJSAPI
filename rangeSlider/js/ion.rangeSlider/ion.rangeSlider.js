@@ -1302,7 +1302,7 @@
             }
 
             if (this.coords.w_rs !== this.coords.w_rs_old || this.force_redraw) {
-               // this.setMinMax();
+              //  this.setMinMax();
                 this.calc(true);
                 this.drawLabels();
                 if (this.options.grid) {

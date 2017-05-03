@@ -8,19 +8,50 @@
        
 
         <link rel="stylesheet" type="text/css" href="css\ion.rangeSlider.css">
-             <link rel="stylesheet" type="text/css" href="css\normalize.css">
-				<link rel="stylesheet" href="css\ion.rangeSlider.skinTableau.css" />
+      <!--  <link rel="stylesheet" type="text/css" href="css\normalize.css">-->
+				<link rel="stylesheet" href="css\ion.rangeSlider.skinTableau10.css" />
 
+
+      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
 
 
 <style>
 
-.slider-div
+.irs-min, .irs-max {
+font-size: 11px; line-height: 1.333;
+font-family: 'Roboto', sans-serif;
+}
+
+.wrapper-div
 {
-	margin-left:100px;
-width:500px;
+    width: 80%;
+    height: 1200px;
+    margin: auto;
+    padding: 0px;
 
 }
+
+  .tableau-viz-div
+  {
+    width: 660px;
+    height: 1000px;
+    float: left;
+  }
+
+  .slider-div
+  {
+    font-family: TrebuchetMS;
+    margin-left: 660px;
+    height: 1000px;
+  }
+
+  .slider-results
+  {
+  width:20px;
+  }
+
+
+
 </style>
 
 
@@ -28,17 +59,18 @@ width:500px;
                          
               var range; 
               var target;      
-              var oldFrom = 0;
-              var oldTo = 0;  
-              var irs_min = document.getElementById('irs-min')
+              var irs_min
+              var date_format = "MMM DD, YYYY";
 						
                 $(document).ready(function () {
+
+                  
                                      
                    $("#range_01").ionRangeSlider({
                     type: "double",
                     drag_interval: true,
   									hide_min_max: false,
-								    hide_from_to: false,
+								    hide_from_to: true,
 									   
 									  min: +moment().subtract(0.5, "year").format("X"),
                     max: +moment().format("X"),
@@ -49,107 +81,61 @@ width:500px;
 
                     
 
-									//	prettify: function (num) {
-										//     return moment(num, "X").format("LL");
-										 //   }
+										prettify: function (num) {
+										     return moment(num, "X").format(date_format);
+										    }
 
 										});
 
-
                 console.log("slider launched");
-                //range = document.getElementById("range_01");
 
-                after_load();
-
-                //  console.log(range);
+                change_trigger();
 
                                     });
 
 
-              function after_load()
+              function change_trigger()
               {
-
-
-               var $range = $("#range_01"); //don't use getElementByI. $() will call jquery object with more jQuery functions applicable
+                
+               var irs_min = document.getElementById('irs-min');
+               var irs_max = document.getElementById('irs-max');
+               var target_div = document.getElementById('slider-results');
+               var $range = $("#range_01"); //don't use getElementById. $() will call jquery object with more jQuery functions applicable
 
                 $range.on('change', function(){
 
-                    console.log("Saving value " + $(this).data("from"));
-                   // $(this).data('val', $(this).val());
-                    //target = document.getElementById('slider-results');
-                    target = document.getElementById('irs-min');
-                    target.textContent= $(this).data("from");
+                    new_dates={};
+
+                    new_dates.irs_min = moment($(this).data("from"),"X").format(date_format);
+                    new_dates.irs_max = moment($(this).data("to"),"X").format(date_format);
+
+                    //display on axis:
+
+                    irs_min.textContent= new_dates.irs_min;
+                    irs_max.textContent= new_dates.irs_max;
+
+                    //display below
+                    target_div.innerHTML = "date range from: "+ new_dates.irs_min +" to: "+ new_dates.irs_max;
 
 
                 });
 
-/*
-               $range.on("change",function(){
-                 target = document.getElementById('slider-results');
-                  min_label = document.getElementById('irs-min');
 
-                  target.textContent= $(this).data("from");
-                  min_label.textContent = $(this).data("from");
-
-                //console.log("changed");
-               });
-*/
               }
 
-
-console.log("testu");
-var target = document.getElementById('slider-results');
-
-
-range.addEventListener("change", function(e){alert("slider changed");});
-
-                    /*
-                             	var $range = $("#range_01");
-										          var target = document.getElementById('slider-results');
-										
-									                                  
-                      $range.on("change", function () {
-                        	 console.log("changing");
-                          	var target = document.getElementById('slider-results');
-												    var $this = $(this),
-											        from = $this.data("from"),
-											        to = $this.data("to");
-												        
-											        from = new Date(from*1000);
-											        to = new Date(to*1000);
-
-											        to = moment(to).format('MM/DD/YYYY');
-                              from = moment(from).format('MM/DD/YYYY');
-
-												        var min_label = document.getElementById('irs-min');
-												        var max_label = document.getElementById('irs-max');
-														//$('.irs-max').replaceWith(to);
-														min_label.innerHTML = from;
-														max_label.innerHTML = to;
-                            //max_label.textContent = to;
-														
-
-									
-												    });
-*/
-										
-                                   
-
-
-
-							
-
-
-
-                                    	
-                                </script>
+  	                                </script>
 
     </head>	
 
     <body>
 
-    <div class="wrapper">
+    <section class="wrapper-div">
+        <div class="tableau-viz-div">
 
+<div class='tableauPlaceholder' id='viz1493808815777' style='position: relative'><noscript><a href='#'><img alt='Tourism Balance ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;To&#47;TourismBalance&#47;TourismBalance&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='site_root' value='' /><param name='name' value='TourismBalance&#47;TourismBalance' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;To&#47;TourismBalance&#47;TourismBalance&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1493808815777');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.minWidth='424px';vizElement.style.maxWidth='654px';vizElement.style.width='100%';vizElement.style.minHeight='629px';vizElement.style.maxHeight='929px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+
+
+        </div>
 		    <div class='slider-div'>
 		  
 		    <input id="range_01" />
@@ -158,7 +144,7 @@ range.addEventListener("change", function(e){alert("slider changed");});
 			<div id='slider-results'>
 			</div>
 
-	</div>
+	</section>
                              
 
 
