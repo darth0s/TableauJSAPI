@@ -8,8 +8,8 @@
        
 
         <link rel="stylesheet" type="text/css" href="css\ion.rangeSlider.css">
-             <link rel="stylesheet" type="text/css" href="css\normalize.css">
-				<link rel="stylesheet" href="css\ion.rangeSlider.skinTableau.css" />
+        <link rel="stylesheet" type="text/css" href="css\normalize.css">
+				<link rel="stylesheet" href="css\ion.rangeSlider.skinTableau10.css" />
 
 
 
@@ -28,17 +28,18 @@ width:500px;
                          
               var range; 
               var target;      
-              var oldFrom = 0;
-              var oldTo = 0;  
-              var irs_min = document.getElementById('irs-min')
+              var irs_min
+              var date_format = "MMM DD, YYYY";
 						
                 $(document).ready(function () {
+
+                  
                                      
                    $("#range_01").ionRangeSlider({
                     type: "double",
                     drag_interval: true,
   									hide_min_max: false,
-								    hide_from_to: false,
+								    hide_from_to: true,
 									   
 									  min: +moment().subtract(0.5, "year").format("X"),
                     max: +moment().format("X"),
@@ -49,100 +50,49 @@ width:500px;
 
                     
 
-									//	prettify: function (num) {
-										//     return moment(num, "X").format("LL");
-										 //   }
+										prettify: function (num) {
+										     return moment(num, "X").format(date_format);
+										    }
 
 										});
 
-
                 console.log("slider launched");
-                //range = document.getElementById("range_01");
 
-                after_load();
-
-                //  console.log(range);
+                change_trigger();
 
                                     });
 
 
-              function after_load()
+              function change_trigger()
               {
-
-
-               var $range = $("#range_01"); //don't use getElementByI. $() will call jquery object with more jQuery functions applicable
+                
+               var irs_min = document.getElementById('irs-min');
+               var irs_max = document.getElementById('irs-max');
+               var target_div = document.getElementById('slider-results');
+               var $range = $("#range_01"); //don't use getElementById. $() will call jquery object with more jQuery functions applicable
 
                 $range.on('change', function(){
 
-                    console.log("Saving value " + $(this).data("from"));
-                   // $(this).data('val', $(this).val());
-                    //target = document.getElementById('slider-results');
-                    target = document.getElementById('irs-min');
-                    target.textContent= $(this).data("from");
+                    new_dates={};
+
+                    new_dates.irs_min = moment($(this).data("from"),"X").format(date_format);
+                    new_dates.irs_max = moment($(this).data("to"),"X").format(date_format);
+
+                    //display on axis:
+
+                    irs_min.textContent= new_dates.irs_min;
+                    irs_max.textContent= new_dates.irs_max;
+
+                    //display below
+                    target_div.innerHTML = "date range from: "+ new_dates.irs_min +" to: "+ new_dates.irs_max;
 
 
                 });
 
-/*
-               $range.on("change",function(){
-                 target = document.getElementById('slider-results');
-                  min_label = document.getElementById('irs-min');
 
-                  target.textContent= $(this).data("from");
-                  min_label.textContent = $(this).data("from");
-
-                //console.log("changed");
-               });
-*/
               }
 
-
-console.log("testu");
-var target = document.getElementById('slider-results');
-
-
-range.addEventListener("change", function(e){alert("slider changed");});
-
-                    /*
-                             	var $range = $("#range_01");
-										          var target = document.getElementById('slider-results');
-										
-									                                  
-                      $range.on("change", function () {
-                        	 console.log("changing");
-                          	var target = document.getElementById('slider-results');
-												    var $this = $(this),
-											        from = $this.data("from"),
-											        to = $this.data("to");
-												        
-											        from = new Date(from*1000);
-											        to = new Date(to*1000);
-
-											        to = moment(to).format('MM/DD/YYYY');
-                              from = moment(from).format('MM/DD/YYYY');
-
-												        var min_label = document.getElementById('irs-min');
-												        var max_label = document.getElementById('irs-max');
-														//$('.irs-max').replaceWith(to);
-														min_label.innerHTML = from;
-														max_label.innerHTML = to;
-                            //max_label.textContent = to;
-														
-
-									
-												    });
-*/
-										
-                                   
-
-
-
-							
-
-
-
-                                    	
-                                </script>
+  	                                </script>
 
     </head>	
 
